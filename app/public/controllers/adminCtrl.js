@@ -25,9 +25,26 @@
         $scope.gridUsersAdmin = {
             data: null,
             enableFiltering: true,
+            columnDefs: [
+                {
+                    field: '_id'
+                },
+                {
+                    field: 'email'
+                },
+                {
+                    field: 'name',
+                    displayName: 'Numele'
+                },
+                {
+                    field: 'isAdmin',
+                    enableFiltering: false
+                }
+            ]
         };
 
         $http.get(urls.BASE_API + '/users').success(function(data) {
+            console.log(data, 'wwwwwww')
             $scope.gridUsersAdmin.data = data;
 
         });

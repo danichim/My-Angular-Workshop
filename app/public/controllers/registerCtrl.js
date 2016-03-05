@@ -12,8 +12,8 @@
         vm.teste = 'muci register';
 
         function successRegister(res){
-            console.log(res, 'ressss')
             $localStorage.token = res.token;
+            alert('register');
         }
 
         function errorRegister(err){
