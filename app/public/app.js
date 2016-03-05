@@ -1,8 +1,7 @@
-(function () {
+(function() {
     'use strict';
 
-    angular
-        .module('app', [
+    angular.module('app', [
             'ngResource',
             'ngRoute',
             'ngStorage'
@@ -12,56 +11,60 @@
             BASE: 'https://workshop-assist.herokuapp.com/',
             BASE_API: 'https://workshop-assist.herokuapp.com/api'
         });
-        //.config(config),
-        //.run(run);
 
-    function config($routeProivder, $httpProvider) {
+    function run($rootScope, $location) {
+        $rootScope.$on('$routeChangeError', function(evt, currentUser, previous, rejection) {
+            if (rejection === 'not authorized') {
+                $location.path('/login');
+            }
+        })
+    }
+
+
+    function config($routeProvider, $httpProvider) {
         var routeRoleChecks = {
             user: {
-                currentUser: function(resolver){
+                currentUser: function(resolver) {
                     return resolver.authenticated();
                 }
             },
             admin: {
-                currentUser: function(resolver){
+                currentUser: function(resolver) {
                     return resolver.isAdmin();
                 }
             }
         };
 
-        $routeProivder
-            //.when('/', {
-            //    controller: 'HomeController',
-            //    templateUrl: 'home/home.view.html',
-            //    controllerAs: 'vm'
-            //})
-
+        $routeProvider
             .when('/login', {
-                controller: 'loginCtrl',
                 templateUrl: 'app/public/views/login.view.html',
-                controllerAs: 'vm'
+                controller: 'loginCtrl'
             })
             .when('/user', {
-                controller: 'userCtrl',
                 templateUrl: 'app/public/views/user.view.html',
-                controllerAs: 'vm',
+                controller: 'userCtrl',
                 resolve: routeRoleChecks.user
             })
-
-            //.when('/register', {
-            //    controller: 'RegisterController',
-            //    templateUrl: 'register/register.view.html',
-            //    controllerAs: 'vm'
-            //})
-
+            .when('/admin', {
+                templateUrl: 'app/public/views/admin.view.html',
+                controller: 'adminCtrl',
+                resolve: routeRoleChecks.admin
+            })
             .otherwise({ redirectTo: '/login' });
+
+        $httpProvider.interceptors.push('authInterceptor');
+
     }
 
-    config.$inject = ['$routeProvider', '$httpProvider'];
 
-    angular.module('app')
-        .config(config);
+    config
+        .$inject = ['$routeProvider', '$httpProvider'];
+    run
+        .$inject = ['$rootScope', '$location'];
 
-    window.angular.module('app');
+    angular
+        .module('app')
+        .config(config)
+        .run(run)
 
-})();
+}());

@@ -6,11 +6,18 @@
         .controller('userCtrl', userCtrl);
 
 
-    function userCtrl($scope) {
+    function userCtrl($scope, Fortune) {
         var vm = this;
 
         vm.test = 'muci';
         //vm.login = login;
+
+        vm.randomFortune = '';
+        var fortune = new Fortune();
+        console.log('ion', fortune)
+        fortune.getFortune().$promise.then(function(){
+            vm.randomFortune = fortune.text;
+        });
 
         //function successAuth(res){
         //    $localStorage.token = res.token;
@@ -35,7 +42,8 @@
     }
 
     userCtrl.$inject = [
-        '$scope'
+        '$scope',
+        'Fortune'
         //'$localStorage',
         //'$location',
         //'Auth'

@@ -4,8 +4,6 @@
 
     function Auth($http, $localStorage, urls, decoder) {
 
-
-
         function tokenClaims(){
             var
                 token = $localStorage.token,
@@ -28,23 +26,7 @@
                 delete $localStorage.token;
                 success();
             }
-        }
-
-
-        //function Users() {}
-        //
-        //Users.prototype = {
-        //
-        //    signin: function(username, pass) {
-        //    },
-        //
-        //    getTokenClaims: function(session) {
-        //    },
-        //
-        //
-        //};
-        //
-        //return Users;
+        };
 
     }
 
