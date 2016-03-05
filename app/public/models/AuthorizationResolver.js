@@ -2,11 +2,13 @@
 
     'use strict';
 
-    function resolver($q, Auth) {
+    function resolver($q, Auth, $location) {
         return {
             authenticated: function() {
                 var currentUser = Auth.getTokenClaims()._doc;
-                console.log('currentUser', currentUser);
+
+
+
                 if (currentUser && currentUser.email) {
                     return currentUser;
                 } else {
@@ -16,18 +18,20 @@
 
             isAdmin: function() {
                 var currentUser = Auth.getTokenClaims()._doc;
-                console.log('currentUser', currentUser);
+
                 if (currentUser && currentUser.isAdmin === true) {
-                    return currentUser
+                    return currentUser;
                 } else {
                     return $q.reject('not authorized');
                 }
+
+
             }
         }
     }
 
     resolver
-        .$inject = ['$q', 'Auth'];
+        .$inject = ['$q', 'Auth', '$location'];
     angular
         .module('app')
         .factory('resolver', resolver)

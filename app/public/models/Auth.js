@@ -19,6 +19,9 @@
             signin: function(data, success, error){
                 $http.post(urls.BASE_API + '/authenticate', data).success(success).error(error);
             },
+            register: function(data, success, error){
+                $http.post(urls.BASE_API + '/users', data).success(success).error(error);
+            },
             getTokenClaims: function(){
                 return tokenClaims();
             },

@@ -1,0 +1,14 @@
+<div class = "container">
+  <div class="wrapper">
+    <form name="Login_Form" class="form-signin">
+      <h3 class="form-signin-heading">Welcome Back! Please register</h3>
+      <hr class="colorgraph"><br>
+
+      <input type="text" class="form-control" ng-model="email" name="Username" placeholder="Email" required="" autofocus="" />
+      <input type="password" class="form-control" ng-model="password" name="Password" placeholder="Password" required=""/>
+      <label for="isAdmin">Este admin : </label><input name="isAdmin" type="checkbox" ng-model="isAdmin" value="false"/>
+      <br/>{{RegisterCtrl.teste}}  <a href="#login">Login</a>
+      <button class="btn btn-lg btn-primary btn-block" ng-click="RegisterCtrl.registerUser(email, password, isAdmin)" name="Submit" value="Register">Register</button>
+    </form>
+  </div>
+</div>

@@ -4,7 +4,8 @@
     angular.module('app', [
             'ngResource',
             'ngRoute',
-            'ngStorage'
+            'ngStorage',
+            'ui.grid'
         ])
 
         .constant('urls', {
@@ -44,6 +45,10 @@
                 templateUrl: 'app/public/views/user.view.html',
                 controller: 'userCtrl',
                 resolve: routeRoleChecks.user
+            })
+            .when('/register', {
+                templateUrl: 'app/public/views/register.view.html',
+                controller: 'registerCtrl'
             })
             .when('/admin', {
                 templateUrl: 'app/public/views/admin.view.html',

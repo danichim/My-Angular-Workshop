@@ -6,7 +6,7 @@
         .controller('adminCtrl', adminCtrl);
 
 
-    function adminCtrl($scope, Reflection) {
+    function adminCtrl($scope, Reflection, Auth, $location, $http, urls) {
         var vm = this;
 
         vm.test = 'muci admin';
@@ -17,15 +17,35 @@
             vm.randomReflection = reflection.text;
         });
 
+        vm.logOut = function () {
+            Auth.logout(function(){});
+            $location.path('/login');
+        };
+
+        $scope.gridUsersAdmin = {
+            data: null,
+            enableFiltering: true,
+        };
+
+        $http.get(urls.BASE_API + '/users').success(function(data) {
+            $scope.gridUsersAdmin.data = data;
+
+        });
+
+
+
         return $scope.AdminCtrl = vm;
 
     }
 
     adminCtrl.$inject = [
         '$scope',
-        'Reflection'
+        'Reflection',
+        'Auth',
+        '$location',
+        '$http',
+        'urls'
         //'$localStorage',
-        //'$location',
         //'Auth'
     ];
 
