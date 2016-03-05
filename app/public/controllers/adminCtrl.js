@@ -27,27 +27,40 @@
             enableFiltering: true,
             columnDefs: [
                 {
-                    field: '_id'
+                    field: '_id',
+                    enableCellEdit: false
                 },
                 {
-                    field: 'email'
+                    field: 'email',
+                    enableCellEdit: false
                 },
                 {
                     field: 'name',
-                    displayName: 'Numele'
+                    displayName: 'Numele',
+                    enableCellEdit: true
                 },
                 {
                     field: 'isAdmin',
-                    enableFiltering: false
+                    enableFiltering: false,
+                    width: '10%'
                 }
             ]
         };
 
         $http.get(urls.BASE_API + '/users').success(function(data) {
-            console.log(data, 'wwwwwww')
             $scope.gridUsersAdmin.data = data;
-
         });
+
+        //$scope.gridUsersAdmin.onRegisterApi = function(gridApi) {
+        //    //set gridApi on scope
+        //    $scope.gridApi = gridApi;
+        //    gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
+        //        //Do your REST call here via $http.get or $http.post
+        //
+        //        //Alert to show what info about the edit is available
+        //        alert('Column: ' + colDef.name + ' ID: ' + rowEntity.id + ' Name: ' + rowEntity.name + ' Age: ' + rowEntity.age);
+        //    });
+        //};
 
 
 

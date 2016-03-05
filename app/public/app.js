@@ -5,7 +5,8 @@
             'ngResource',
             'ngRoute',
             'ngStorage',
-            'ui.grid'
+            'ui.grid',
+            'ui.grid.edit'
         ])
 
         .constant('urls', {
